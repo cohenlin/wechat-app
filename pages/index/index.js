@@ -13,6 +13,11 @@ Page({
       inputName: e.detail.value
     })
   },
+  template: function() {
+    wx.navigateTo({
+      url: '../template/template-view',
+    })
+  },
   submit: function() {
     var inputName = this.data.inputName;
     wx.request({

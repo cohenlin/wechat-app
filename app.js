@@ -4,6 +4,7 @@ App({
     wx.checkSession({
       success() {
         //session_key 未过期，并且在本生命周期一直有效
+        console.log("checkSession success")
       },
       fail() {
         // 登录
@@ -12,7 +13,7 @@ App({
             // 发送 res.code 到后台换取 openId, sessionKey, unionId
             if (res.code) {
               wx.request({
-                url: 'https://wechatapp.ljczl.top/codeToSession',
+                url: 'https://wechatapp.ljczl.top/api/codeToSession',
                 method: "POST",
                 data: {
                   "code": res.code
