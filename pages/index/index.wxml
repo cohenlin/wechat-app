@@ -1,13 +1,7 @@
 <view>
   <open-data type="userAvatarUrl" class='touimage'></open-data>
   <span class='nickName'>Hello!<open-data type="userNickName"></open-data></span>
-  <view class='inputView'>
-      <input class="input" bindinput='inputName' type="text" placeholder="请输入一个昵称" />
-  </view>
   <view class='submitBtn'>
-    <button type='button' bindtap='template'>跳转</button>
-  </view>
-  <view class='submitBtn'>
-    <button type='button' bindtap='submit'>提交</button>
+    <button type='button' bindtap='template'>洗衣机预约</button>
   </view>
 </view>

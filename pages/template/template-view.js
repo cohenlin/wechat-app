@@ -25,27 +25,18 @@ Page({
       })
     }
     var that = this;
-    // console.log(e);
 
     if (e.currentTarget.dataset.tag == "begin") {
       var event = {
         Type: "begin",
-
       }
-
       that.getNeedChangeDate(event, that.data.scheduleBegintime, that.data.scheduleEndtime)
-
-
     } else {
       var event = {
         Type: "end",
       }
-
       that.getNeedChangeDate(event, that.data.scheduleBegintime, that.data.scheduleEndtime)
-
     }
-
-
   },
 
   /**
@@ -97,7 +88,6 @@ Page({
    */
   getCurrentDate(e) {
     var date;
-    // console.log(e)
     if (e) {
       var curDate = e.replace(/-/g, "/");
       date = new Date(Date.parse(curDate))
@@ -136,7 +126,6 @@ Page({
     const val = e.detail.value;
     var isBegin = this.data.dateChoose.isBegin;          //判断点击是否是开始时间
     // console.log("isBegin" + isBegin)
-
     var picker_day = [];
     var choose_year = this.data.dateChoose.picker_year[val[0]];
     var choose_month = this.data.dateChoose.picker_month[val[1]];
@@ -157,24 +146,15 @@ Page({
         changTime: changTime,
         choose_minorafter: choose_minorafter,
         val: val,
-      };
-      // console.log("beginDateNoSubmit+++");
-      // console.log(beginDateNoSubmit);      
+      };   
       // 更改滚动选择器天数
       if (this.data.begin_choose_month != choose_month || choose_year != this.data.choose_year) {
-        // console.log("改变  天数 了")
         picker_day = utils.getDays(choose_year, choose_month);
-        // console.log("pickerChange   isBegin")
-        // console.log(picker_day)
         dateChoose.picker_day = picker_day;       //  月份改变   天数改变
-        // that.setData({
-        //   dateChoose: dateChoose,
-        // })
       }
       that.setData({
         beginDateNoSubmit: beginDateNoSubmit,
         begin_choose_month: choose_month,
-        // beginDateNoSubmit2: beginDateNoSubmit,
       })
 
       dateChoose.beginDate = changDate;
@@ -187,23 +167,13 @@ Page({
         choose_minorafter: choose_minorafter,
         val: val,
       };
-
-      // console.log("endDateNoSubmit+++");
-      // console.log(endDateNoSubmit);    
       if (this.data.end_choose_month != choose_month || choose_year != this.data.choose_year) {
-        // console.log("改变  天数 了")
         picker_day = utils.getDays(choose_year, choose_month);
-        // console.log("pickerChange   isBegin")
-        // console.log(picker_day)
         dateChoose.picker_day = picker_day;       //  月份改变   天数改变
-        // that.setData({
-        //   dateChoose: dateChoose,
-        // })
       }
       that.setData({
         endDateNoSubmit: endDateNoSubmit,
         end_choose_month: choose_month,
-        // endDateNoSubmit2: endDateNoSubmit,
       })
 
       dateChoose.endDate = changDate;
@@ -214,8 +184,6 @@ Page({
     dateChoose.picker_value = val;            //  将位置改变
     const date = new Date(Date.UTC(choose_year, choose_month, choose_day));
     var choose_week = utils.getCurrentWeeks(date)
-    // console.log("choose_year" + choose_year + "choose_month" + choose_month + "choose_day" + choose_day + "choose_week" + choose_week);
-
     console.log(dateChoose)
     this.setData({
       choose_year,
@@ -279,7 +247,7 @@ Page({
           "content-type": "application/x-www-form-urlencoded"
         },
         success(res) {
-          wx.setStorageSync("openid", res.data.openid)
+          console.log("success")
         }
       })
     } else {
@@ -341,12 +309,10 @@ Page({
    */
   onLoad: function (options) {
     var comeDate = options.comeDate;
-    // console.log(comeDate)
     var isSDComing = false;                 //标记是否是从日程详情  转过来修改
     if (options.scheduleData) {
       isSDComing = true;
       var scheduleData = JSON.parse(options.scheduleData);
-      // console.log(scheduleData)
       var scheduleId = scheduleData.scheduleId;
       var thingContent = scheduleData.scheduleType;
       var isAllDayNumber = scheduleData.isAllDay;
@@ -371,7 +337,6 @@ Page({
       var chooseBeginTime24 = utils.cutDateToTime(scheduleData.scheduleBegintime);
       var chooseBeginTime = utils.changTime24To12(chooseBeginTime24);
       var chooseBegin_monorafter = utils.getHoursOfTime(chooseBeginTime24);
-      // console.log(chooseBeginTime24+":"+chooseBegin_monorafter)
       chooseBegin_monorafter = utils.checkAMAndPM(chooseBegin_monorafter);
       var chooseEndDate = utils.cutDateToYMD(scheduleData.scheduleEndtime);
       var chooseEndTime24 = utils.cutDateToTime(scheduleData.scheduleEndtime);
@@ -393,7 +358,6 @@ Page({
         allDayIsChecked,
         urgentIsChecked,
       }
-      // console.log(data)
       this.setData({
         scheduleId,
         isSDComing,
@@ -419,25 +383,23 @@ Page({
         this.setData({
           textareaDisabled: true,
           showShareStatus: true,
-
         })
       }
     } else {
       //   不是修改  获取当前时间设置   时间选择开始时间
       this.getCurrentDate(comeDate);
       this.initDate();
+      var dateChoose = this.data.dateChoose;
+      this.setData({
+        dateChoose: dateChoose,
+      })
     }
-    // this.getCurrentDate();
-    // this.initDate();
-    // this.getRemindData();
-    // this.test();
   },
 
   /**
    * 将需要修改的日程数据显示在滚轮上
    */
   getNeedChangeDate(e, beginNeedChangDate, endNeedChangDate) {
-
     var beginNCDateString = beginNeedChangDate.replace(/-/g, "/");
     var beginNCDate = new Date(Date.parse(beginNCDateString));
     var endNCDateString = endNeedChangDate.replace(/-/g, "/");
@@ -501,8 +463,6 @@ Page({
         val: picker_value_begin,
       };
     }
-    // console.log("endDateNoSubmit----");
-    // console.log(endDateNoSubmit);
     if (endDateNoSubmit.changTime) {
       if (!isBegin) {
         var picker_value = endDateNoSubmit.val;

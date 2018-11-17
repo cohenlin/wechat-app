@@ -2,7 +2,7 @@
 <!--时间选择    弹出框-->
 
 <view wx:if="true" class='template-date-view'>
-    <view class='template-dv-header'>任务创建</view>
+    <view class='template-dv-header'>预约</view>
     <view class='template-date'>
         <view class='template-begindate' bindtap='onChooseDateListener' data-tag='begin'>
             <view class='template-begin-date'>{{dateChoose.beginDate}}</view>
@@ -67,12 +67,12 @@
                 class='template-allday-switch'></switch>
     </view>
     <view class='template-input-view'>
-        <textarea id='remark' placeholder='输入任务描述' placeholder-class='template-placeholder-view' bindinput='remarkInput'></textarea>
+        <textarea id='remark' placeholder='备注' placeholder-class='template-placeholder-view' bindinput='remarkInput'></textarea>
     </view>
     <view class='template-picker-bottom'>
         <view class='template-bottom-buttom'>
             <view class='template-bottom-today' bindtap='dateFormReset'>取消</view>
-            <view class='template-bottom-ok' bindtap='dateFormSubmit'>确定</view>
+            <view class='template-bottom-ok' bindtap='dateFormSubmit'>预约</view>
         </view>
     </view>
 </view>
